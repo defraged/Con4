@@ -1,0 +1,7 @@
+LIBRARY	Con4
+
+EXPORTS
+    DllRegisterServer @1 PRIVATE
+    DllUnregisterServer @2 PRIVATE
+    DllGetClassObject @3 PRIVATE
+    DllCanUnloadNow @4 PRIVATE

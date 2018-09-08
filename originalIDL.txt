@@ -1,0 +1,98 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(B8954023-1945-4914-BA81-EFEE040D3299),
+	dual,
+	nonextensible,
+	helpstring("IConnectFourGame Interface"),
+	pointer_default(unique)
+]
+interface IConnectFourGame : IDispatch
+{
+	[id(1), helpstring("method EndGame")] HRESULT EndGame(void);
+	[id(2), local] BSTR GetClassID();
+	[id(3), helpstring("method GetGameDetails")] HRESULT GetGameDetails([out] BSTR* Name, [out] BSTR* Info, [out] BSTR* SeatList, [out] BSTR* CanChangeSeat, [out] BSTR* CanSelectSeat, [out] SHORT* MinParticipants, [out] SHORT* MaxParticipants, [out] BSTR* Avatar);
+	[id(4), helpstring("method Send")] HRESULT Send([in] LONG Id, [in] BSTR Name, [in] SHORT Type, [in] LONG ToId, [in] SHORT SendType, [in] BSTR Message, [in,out] BSTR* Data);
+	[id(5), helpstring("method EnumMembers")] HRESULT EnumMembers([in] LONG Current, [in] SHORT Level, [in] LONG Id, [in] BSTR Name, [in] SHORT Type, [in] LONG X, [in] LONG Y);
+	[id(6), helpstring("method JoinGroup")] HRESULT JoinGroup([in] LONG Id, [in] BSTR Name, [in] LONG X, [in] LONG Y, [in] LONG GroupId, [in] BSTR GroupName);
+	[id(7), helpstring("method LeaveGroup")] HRESULT LeaveGroup([in] LONG Id, [in] BSTR Name, [in] LONG GroupId, [in] BSTR GroupName);
+	[id(8), helpstring("method StartGame")] HRESULT StartGame([in] LONG Id, [in] BSTR Name, [in] LONG GroupId, [in] BSTR GroupName, [in] LONG LeaderId, [in] SHORT Capacity, [in] LONG Seat);
+	[id(9), helpstring("method SendFromService")] HRESULT SendFromService([in] LONG Id, [in] SHORT Type, [in] LONG SrvSendType, [in] BSTR Message, [in,out] BSTR* Data, [in] LONG ReqId);
+};
+
+[
+	uuid(A1241FE5-B51F-42aa-877B-BFA47BEF3FC1),
+	version(1.0),
+	helpstring("Connect Four COM Control 1.0")
+]
+library ConnectFourLib
+{
+	importlib("stdole2.tlb");
+
+	[
+		uuid(A9F71877-FB9A-40bd-A39D-FC7748D27392),
+		helpstring("Connect Four Events")
+	]
+	dispinterface _IConnectFourEvents
+	{
+		properties:
+		methods:
+		[id(1)]
+        void LeaveGroup();
+		[id(2)]
+        void GetPresenceInfo(
+                        long Id, 
+                        BSTR* Nickname, 
+                        BSTR* Fullname, 
+                        BSTR* Location, 
+                        BSTR* Email);
+        [id(3)]
+        void GetParentWnd(long* hWnd);
+        [id(4)]
+        void SetGameWnd(long hWnd);
+        [id(5)]
+        void DupAvatar(
+                        long ParentWnd, 
+                        long Seat);
+        [id(6)]
+        void SetAvatarPos(
+                        long Seat, 
+                        short Left, 
+                        short Top, 
+                        short Width, 
+                        short Height);
+        [id(7)]
+        void EnumMembers(
+                        long Id, 
+                        short MaxLevel);
+        [id(8)]
+        void Send(
+                        long Id, 
+                        short SendType, 
+                        BSTR Message, 
+                        BSTR* Data);
+        [id(9)]
+        void QueryService(
+                        long* Id, 
+                        short* Type);
+        [id(10)]
+        void SendToService(
+                        long ServiceId, 
+                        long SrvSendType, 
+                        BSTR Message, 
+                        BSTR* Data, 
+                        long ReqId);
+	};
+
+	[
+		uuid(4576E618-B9F7-4ae2-BAFA-522F88E719B3),
+		helpstring("ConnectFour Class")
+	]
+	coclass ConnectFourGame
+	{
+		[default] interface IConnectFourGame;
+		[default, source] dispinterface _IConnectFourEvents;
+	};
+};

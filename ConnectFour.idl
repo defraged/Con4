@@ -1,0 +1,101 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(A1241FE6-B51F-42aa-877B-BFA47BEF3FC1),
+	dual,
+	nonextensible,
+	helpstring("IConnectFourGame Interface"),
+	pointer_default(unique)
+]
+interface IConnectFourGame : IDispatch
+{
+	[id(1), local, helpstring("method EndGame")] void EndGame(void);
+	[id(2), local] BSTR GetClassID();
+	[id(3), local, helpstring("method GetGameDetails")] void GetGameDetails([out] BSTR* Name, [out] BSTR* Info, [out] BSTR* SeatList, [out] BSTR* CanChangeSeat, [out] BSTR* CanSelectSeat, [out] SHORT* MinParticipants, [out] SHORT* MaxParticipants, [out] BSTR* Avatar);
+	[id(4), local, helpstring("method Send")] void Send([in] LONG Id, [in] BSTR Name, [in] SHORT Type, [in] LONG ToId, [in] SHORT SendType, [in] BSTR Message, [in,out] BSTR* Data);
+	[id(5), local, helpstring("method EnumMembers")] void EnumMembers([in] LONG Current, [in] SHORT Level, [in] LONG Id, [in] BSTR Name, [in] SHORT Type, [in] LONG X, [in] LONG Y);
+	[id(6), local, helpstring("method JoinGroup")] void JoinGroup([in] LONG Id, [in] BSTR Name, [in] LONG X, [in] LONG Y, [in] LONG GroupId, [in] BSTR GroupName);
+	[id(7), local, helpstring("method LeaveGroup")] void LeaveGroup([in] LONG Id, [in] BSTR Name, [in] LONG GroupId, [in] BSTR GroupName);
+	[id(8), local, helpstring("method StartGame")] void StartGame([in] LONG Id, [in] BSTR Name, [in] LONG GroupId, [in] BSTR GroupName, [in] LONG LeaderId, [in] SHORT Capacity, [in] LONG Seat);
+	[id(9), local, helpstring("method SendFromService")] void SendFromService([in] LONG Id, [in] SHORT Type, [in] LONG SrvSendType, [in] BSTR Message, [in,out] BSTR* Data, [in] LONG ReqId);
+};
+
+[
+	object,
+	uuid(A1241FE7-B51F-42aa-877B-BFA47BEF3FC1),
+	dual,
+	nonextensible,
+	helpstring("Connect Four Events"),
+	pointer_default(unique)
+]
+interface IConnectFourEvents : IDispatch
+{
+	[id(1), local, hidden]
+	void LeaveGroup();
+	[id(2), local, hidden]
+	void GetPresenceInfo(
+					long Id, 
+					BSTR* Nickname, 
+					BSTR* Fullname, 
+					BSTR* Location, 
+					BSTR* Email);
+	[id(3), local, hidden]
+	void GetParentWnd(long* hWnd);
+	[id(4), local, hidden]
+	void SetGameWnd(long hWnd);
+	[id(5), local, hidden]
+	void DupAvatar(
+					long ParentWnd, 
+					long Seat);
+	[id(6), local, hidden]
+	void SetAvatarPos(
+					long Seat, 
+					short Left, 
+					short Top, 
+					short Width, 
+					short Height);
+	[id(7), local, hidden]
+	void EnumMembers(
+					long Id, 
+					short MaxLevel);
+	[id(8), local, hidden]
+	void Send(
+					long Id, 
+					short SendType, 
+					BSTR Message, 
+					BSTR* Data);
+	[id(9), local, hidden]
+	void QueryService(
+					long* Id, 
+					short* Type);
+	[id(10), local, hidden]
+	void SendToService(
+					long ServiceId, 
+					long SrvSendType, 
+					BSTR Message, 
+					BSTR* Data, 
+					long ReqId);
+};
+
+[
+	uuid(A1241FE5-B51F-42aa-877B-BFA47BEF3FC1),
+	version(1.0),
+	helpstring("Connect Four COM Control 1.0")
+]
+library ConnectFourLib
+{
+	importlib("stdole2.tlb");
+
+	[
+		uuid(A1241FE8-B51F-42aa-877B-BFA47BEF3FC1),
+		helpstring("ConnectFour Class"),
+		control
+	]
+	coclass ConnectFourGame
+	{
+		[default] interface IConnectFourGame;
+		interface IConnectFourEvents;
+	};
+};

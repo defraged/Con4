@@ -1,0 +1,26 @@
+HKCR
+{
+	ConFour.ConFourGame.1 = s 'ConFourGame Class'
+	{
+		CLSID = s '{A1241FE8-B51F-42aa-877B-BFA47BEF3FC1}'
+	}
+	ConFour.ConFourGame = s 'ConFourGame Class'
+	{
+		CLSID = s '{A1241FE8-B51F-42aa-877B-BFA47BEF3FC1}'
+		CurVer = s 'ConFour.ConFourGame.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {A1241FE8-B51F-42aa-877B-BFA47BEF3FC1} = s 'ConFourGame Class'
+		{
+			ProgID = s 'ConFour.ConFourGame.1'
+			VersionIndependentProgID = s 'ConFour.ConFourGame'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Single'
+			}
+			'TypeLib' = s '{A1241FE5-B51F-42aa-877B-BFA47BEF3FC1}'
+		}
+	}
+}

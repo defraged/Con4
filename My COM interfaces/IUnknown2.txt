@@ -1,0 +1,172 @@
+#ifndef __IUnknown2_INTERFACE_DEFINED__
+#define __IUnknown2_INTERFACE_DEFINED__
+
+/* interface IUnknown */
+/* [unique][uuid][object][local] */ 
+
+typedef /* [unique] */ IUnknown2 *LPUNKNOWN2;
+
+//////////////////////////////////////////////////////////////////
+// IID_IUnknown and all other system IIDs are provided in UUID.LIB
+// Link that library in with your proxies, clients and servers
+//////////////////////////////////////////////////////////////////
+
+#if (_MSC_VER >= 1100) && defined(__cplusplus) && !defined(CINTERFACE)
+    EXTERN_C const IID IID_IUnknown2;
+    extern "C++"
+    {
+        MIDL_INTERFACE("FF1F49D2-1BF6-4931-A392-A4A49C2D177A")
+        IUnknown
+        {
+        public:
+            BEGIN_INTERFACE
+            virtual HRESULT __cdecl QueryInterface( 
+                /* [in] */ REFIID riid,
+                /* [iid_is][out] */ void __RPC_FAR *__RPC_FAR *ppvObject) = 0;
+            
+            virtual ULONG __cdecl AddRef( void) = 0;
+            
+            virtual ULONG __cdecl Release( void) = 0;
+    	
+            template<class Q>
+    	HRESULT __cdecl QueryInterface(Q** pp)
+    	{
+    	    return QueryInterface(__uuidof(Q), (void **)pp);
+    	}
+            
+            END_INTERFACE
+        };
+    } // extern C++
+    HRESULT __cdecl IUnknown_QueryInterface_Proxy(
+        IUnknown2 __RPC_FAR * This,
+        /* [in] */ REFIID riid,
+        /* [iid_is][out] */ void __RPC_FAR *__RPC_FAR *ppvObject);
+    
+    void __RPC_STUB IUnknown2_QueryInterface_Stub(
+        IRpcStubBuffer *This,
+        IRpcChannelBuffer *_pRpcChannelBuffer,
+        PRPC_MESSAGE _pRpcMessage,
+        DWORD *_pdwStubPhase);
+    
+    ULONG __cdecl IUnknown2_AddRef_Proxy(
+        IUnknown2 __RPC_FAR * This);
+    
+    void __RPC_STUB IUnknown2_AddRef_Stub(
+        IRpcStubBuffer *This,
+        IRpcChannelBuffer *_pRpcChannelBuffer,
+        PRPC_MESSAGE _pRpcMessage,
+        DWORD *_pdwStubPhase);
+    
+    ULONG __cdecl IUnknown2_Release_Proxy(
+        IUnknown __RPC_FAR * This);
+    
+    void __RPC_STUB IUnknown2_Release_Stub(
+        IRpcStubBuffer *This,
+        IRpcChannelBuffer *_pRpcChannelBuffer,
+        PRPC_MESSAGE _pRpcMessage,
+        DWORD *_pdwStubPhase);
+#else
+
+EXTERN_C const IID IID_IUnknown2;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("FF1F49D2-1BF6-4931-A392-A4A49C2D177A")
+    IUnknown2
+    {
+    public:
+        BEGIN_INTERFACE
+        virtual HRESULT __cdecl QueryInterface( 
+            /* [in] */ REFIID riid,
+            /* [iid_is][out] */ void **ppvObject) = 0;
+        
+        virtual ULONG __cdecl AddRef( void) = 0;
+        
+        virtual ULONG __cdecl Release( void) = 0;
+        
+        END_INTERFACE
+    };
+    
+#else 	/* C style interface */
+
+    typedef struct IUnknown2Vtbl
+    {
+        BEGIN_INTERFACE
+        
+        HRESULT ( __cdecl *QueryInterface )( 
+            IUnknown2 * This,
+            /* [in] */ REFIID riid,
+            /* [iid_is][out] */ void **ppvObject);
+        
+        ULONG ( __cdecl *AddRef )( 
+            IUnknown2 * This);
+        
+        ULONG ( __cdecl *Release )( 
+            IUnknown2 * This);
+        
+        END_INTERFACE
+    } IUnknown2Vtbl;
+
+    interface IUnknown2
+    {
+        CONST_VTBL struct IUnknown2Vtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define IUnknown2_QueryInterface(This,riid,ppvObject)	\
+    (This)->lpVtbl -> QueryInterface(This,riid,ppvObject)
+
+#define IUnknown2_AddRef(This)	\
+    (This)->lpVtbl -> AddRef(This)
+
+#define IUnknown2_Release(This)	\
+    (This)->lpVtbl -> Release(This)
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+HRESULT __cdecl IUnknown2_QueryInterface_Proxy( 
+    IUnknown2 * This,
+    /* [in] */ REFIID riid,
+    /* [iid_is][out] */ void **ppvObject);
+
+
+void __RPC_STUB IUnknown2_QueryInterface_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+ULONG __cdecl IUnknown2_AddRef_Proxy( 
+    IUnknown2 * This);
+
+
+void __RPC_STUB IUnknown2_AddRef_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+ULONG __cdecl IUnknown2_Release_Proxy( 
+    IUnknown2 * This);
+
+
+void __RPC_STUB IUnknown2_Release_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+
+#endif 	/* __IUnknown2_INTERFACE_DEFINED__ */

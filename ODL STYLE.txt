@@ -1,0 +1,154 @@
+[
+  uuid(A1241FE5-B51F-42aa-877B-BFA47BEF3FC1),
+  version(1.0),
+  helpstring("ConnectFour ActiveX Control module"),
+  helpfile("Con4.hlp"),
+  helpcontext(00000000)
+]
+library ConnectFourLib
+{
+    importlib("stdole2.tlb");
+
+    // Forward declare all types defined in this typelib
+    dispinterface IConnectFourGame;
+    dispinterface _IConnectFourEvents;
+
+    [
+      uuid(A1241FE6-B51F-42aa-877B-BFA47BEF3FC1),
+      helpstring("Dispatch interface for ConnectFour Control"),
+      hidden
+    ]
+    dispinterface IConnectFourGame {
+        properties:
+        methods:
+            [id(0x00000001)]
+            void EndGame();
+            [id(0x00000002)]
+            void EnumMembers(
+                            long Current, 
+                            short Level, 
+                            long Id, 
+                            BSTR Name, 
+                            short Type, 
+                            long X, 
+                            long Y);
+            [id(0x00000003)]
+            BSTR GetClassID();
+            [id(0x00000004)]
+            void GetGameDetails(
+                            BSTR* Name, 
+                            BSTR* Info, 
+                            BSTR* SeatList, 
+                            BSTR* CanChangeSeat, 
+                            BSTR* CanSelectSeat, 
+                            short* MinParticipants, 
+                            short* MaxParticipants, 
+                            BSTR* Avatar);
+            [id(0x00000005)]
+            void JoinGroup(
+                            long Id, 
+                            BSTR Name, 
+                            long X, 
+                            long Y, 
+                            long GroupId, 
+                            BSTR GroupName);
+            [id(0x00000006)]
+            void LeaveGroup(
+                            long Id, 
+                            BSTR Name, 
+                            long GroupId, 
+                            BSTR GroupName);
+            [id(0x00000007)]
+            void Send(
+                            long Id, 
+                            BSTR Name, 
+                            short Type, 
+                            long ToId, 
+                            short SendType, 
+                            BSTR Message, 
+                            BSTR* Data);
+            [id(0x00000008)]
+            void SendFromService(
+                            long Id, 
+                            short Type, 
+                            long SrvSendType, 
+                            BSTR Message, 
+                            BSTR* Data, 
+                            long ReqId);
+            [id(0x00000009)]
+            void StartGame(
+                            long Id, 
+                            BSTR Name, 
+                            long GroupId, 
+                            BSTR GroupName, 
+                            long LeaderId, 
+                            short Capacity, 
+                            long Seat);
+            [id(0xfffffdd8)]
+            void AboutBox();
+    };
+
+    [
+      uuid(A1241FE7-B51F-42aa-877B-BFA47BEF3FC1),
+      helpstring("Event interface for ConnectFour Control")
+    ]
+    dispinterface _IConnectFourEvents {
+        properties:
+        methods:
+            [id(0x00000001)]
+            void DupAvatar(
+                            long ParentWnd, 
+                            long Seat);
+            [id(0x00000002)]
+            void EnumMembers(
+                            long Id, 
+                            short MaxLevel);
+            [id(0x00000003)]
+            void GetParentWnd(long* hWnd);
+            [id(0x00000004)]
+            void GetPresenceInfo(
+                            long Id, 
+                            BSTR* Nickname, 
+                            BSTR* Fullname, 
+                            BSTR* Location, 
+                            BSTR* Email);
+            [id(0x00000005)]
+            void LeaveGroup();
+            [id(0x00000006)]
+            void QueryService(
+                            long* Id, 
+                            short* Type);
+            [id(0x00000007)]
+            void Send(
+                            long Id, 
+                            short SendType, 
+                            BSTR Message, 
+                            BSTR* Data);
+            [id(0x00000008)]
+            void SendToService(
+                            long ServiceId, 
+                            long SrvSendType, 
+                            BSTR Message, 
+                            BSTR* Data, 
+                            long ReqId);
+            [id(0x00000009)]
+            void SetAvatarPos(
+                            long Seat, 
+                            short Left, 
+                            short Top, 
+                            short Width, 
+                            short Height);
+            [id(0x0000000a)]
+            void SetGameWnd(long hWnd);
+    };
+
+    [
+      uuid(A1241FE8-B51F-42aa-877B-BFA47BEF3FC1),
+      helpstring("ConnectFour Control"),
+      control
+    ]
+    coclass Vct {
+        [default] dispinterface IConnectFourGame;
+        [default, source] dispinterface _IConnectFourEvents;
+    };
+};

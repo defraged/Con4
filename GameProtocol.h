@@ -1,0 +1,93 @@
+#pragma once
+
+#define GAME_ROWS 6
+#define GAME_COLS 7
+
+typedef struct _PACKETINFO
+{
+	UINT GameKey;
+	UINT PacketType;
+} PACKETINFO;
+
+typedef struct _GAMESTATS
+{
+	UINT Wins;
+	UINT Losses;
+	UINT Draws;
+} GAMESTATS;
+
+typedef enum _CHIPLOCSTATE
+{
+	NOCHIP = 1,
+	REDCHIP = 2,
+	BLUECHIP = 4,
+	GREENCHIP = 8
+} CHIPLOCSTATE;
+
+typedef CHIPLOCSTATE CHIPTYPE;
+
+typedef struct _CHIPLOCINFO
+{
+	SHORT ChipCount;
+	UINT ChipLocState[GAME_ROWS];
+} CHIPLOCINFO;
+
+typedef struct _STATEINFOREQUEST
+{
+	UINT RequestType;
+} STATEINFOREQUEST;
+
+typedef enum _PLAYERTYPE
+{
+	NOPLAYER = 1, 
+	REDPLAYER = 2,
+	BLUEPLAYER = 4
+} PLAYERTYPE;
+
+typedef PLAYERTYPE CURRENTTURN;
+
+typedef struct _SCOREBOARD
+{
+	UINT GamesPlayed;
+	GAMESTATS PlayerStats[2];
+} SCOREBOARD;
+
+typedef enum _CURRENTGAMESTATE
+{
+	GAMEIDLE = 1,
+	GAMEINPROGRESS = 2,
+	GAMEINTERMISSION = 4,
+	REDCONFOUR = 8,
+	BLUECONFOUR = 16,
+	BLUEPLAYERLEFT = 32
+} CURRENTGAMESTATE;
+
+typedef enum _VECTYPE
+{
+	HORZ,
+	VERT,
+	DESCDIAG,
+	ASCDIAG
+} VECTYPE;
+
+typedef struct _CHIPVECINFO
+{
+	bool IsConnectFour;
+	VECTYPE vecType;
+	POINTS points[4];
+} CHIPVECINFO;
+
+typedef struct _GAMESTATEINFO
+{
+	CURRENTTURN CurrentTurn;
+	SCOREBOARD ScoreBoard;
+	UINT CurrentGameState;
+	CHIPLOCINFO ChipLocInfo[GAME_COLS];
+	CHIPVECINFO ConFourVecs[4];
+} GAMESTATEINFO;
+
+typedef struct _PLACECHIPINFO
+{
+	USHORT SlotX;
+	UINT ChipType;
+} PLACECHIPINFO;

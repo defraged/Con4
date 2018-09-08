@@ -1,0 +1,229 @@
+#ifndef __IDispatch2_INTERFACE_DEFINED__
+#define __IDispatch2_INTERFACE_DEFINED__
+
+/* interface IDispatch */
+/* [unique][uuid][object] */ 
+
+typedef /* [unique] */ IDispatch2 *LPDISPATCH2;
+
+/* DISPID reserved to indicate an "unknown" name */
+/* only reserved for data members (properties); reused as a method dispid below */
+#define	DISPID_UNKNOWN	( -1 )
+
+/* DISPID reserved for the "value" property */
+#define	DISPID_VALUE	( 0 )
+
+/* The following DISPID is reserved to indicate the param
+ * that is the right-hand-side (or "put" value) of a PropertyPut
+ */
+#define	DISPID_PROPERTYPUT	( -3 )
+
+/* DISPID reserved for the standard "NewEnum" method */
+#define	DISPID_NEWENUM	( -4 )
+
+/* DISPID reserved for the standard "Evaluate" method */
+#define	DISPID_EVALUATE	( -5 )
+
+#define	DISPID_CONSTRUCTOR	( -6 )
+
+#define	DISPID_DESTRUCTOR	( -7 )
+
+#define	DISPID_COLLECT	( -8 )
+
+/* The range -500 through -999 is reserved for Controls */
+/* The range 0x80010000 through 0x8001FFFF is reserved for Controls */
+/* The range -5000 through -5499 is reserved for ActiveX Accessability */
+/* The range -2000 through -2499 is reserved for VB5 */
+/* The range -3900 through -3999 is reserved for Forms */
+/* The range -5500 through -5550 is reserved for Forms */
+/* The remainder of the negative DISPIDs are reserved for future use */
+
+EXTERN_C const IID IID_IDispatch2;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("992A3CFB-686E-4a50-A93E-540E0705C39D")
+    IDispatch2 : public IUnknown2
+    {
+    public:
+        virtual HRESULT __cdecl GetTypeInfoCount( 
+            /* [out] */ UINT *pctinfo) = 0;
+        
+        virtual HRESULT __cdecl GetTypeInfo( 
+            /* [in] */ UINT iTInfo,
+            /* [in] */ LCID lcid,
+            /* [out] */ ITypeInfo **ppTInfo) = 0;
+        
+        virtual HRESULT __cdecl GetIDsOfNames( 
+            /* [in] */ REFIID riid,
+            /* [size_is][in] */ LPOLESTR *rgszNames,
+            /* [in] */ UINT cNames,
+            /* [in] */ LCID lcid,
+            /* [size_is][out] */ DISPID *rgDispId) = 0;
+        
+        virtual /* [local] */ HRESULT __cdecl Invoke( 
+            /* [in] */ DISPID dispIdMember,
+            /* [in] */ REFIID riid,
+            /* [in] */ LCID lcid,
+            /* [in] */ WORD wFlags,
+            /* [out][in] */ DISPPARAMS *pDispParams,
+            /* [out] */ VARIANT *pVarResult,
+            /* [out] */ EXCEPINFO *pExcepInfo,
+            /* [out] */ UINT *puArgErr) = 0;
+        
+    };
+    
+#else 	/* C style interface */
+
+    typedef struct IDispatch2Vtbl
+    {
+        BEGIN_INTERFACE
+        
+        HRESULT ( __cdecl *QueryInterface )( 
+            IDispatch2 * This,
+            /* [in] */ REFIID riid,
+            /* [iid_is][out] */ void **ppvObject);
+        
+        ULONG ( __cdecl *AddRef )( 
+            IDispatch2 * This);
+        
+        ULONG ( __cdecl *Release )( 
+            IDispatch2 * This);
+        
+        HRESULT ( __cdecl *GetTypeInfoCount )( 
+            IDispatch2 * This,
+            /* [out] */ UINT *pctinfo);
+        
+        HRESULT ( __cdecl *GetTypeInfo )( 
+            IDispatch2 * This,
+            /* [in] */ UINT iTInfo,
+            /* [in] */ LCID lcid,
+            /* [out] */ ITypeInfo **ppTInfo);
+        
+        HRESULT ( __cdecl *GetIDsOfNames )( 
+            IDispatch2 * This,
+            /* [in] */ REFIID riid,
+            /* [size_is][in] */ LPOLESTR *rgszNames,
+            /* [in] */ UINT cNames,
+            /* [in] */ LCID lcid,
+            /* [size_is][out] */ DISPID *rgDispId);
+        
+        /* [local] */ HRESULT ( __cdecl *Invoke )( 
+            IDispatch2 * This,
+            /* [in] */ DISPID dispIdMember,
+            /* [in] */ REFIID riid,
+            /* [in] */ LCID lcid,
+            /* [in] */ WORD wFlags,
+            /* [out][in] */ DISPPARAMS *pDispParams,
+            /* [out] */ VARIANT *pVarResult,
+            /* [out] */ EXCEPINFO *pExcepInfo,
+            /* [out] */ UINT *puArgErr);
+        
+        END_INTERFACE
+    } IDispatch2Vtbl;
+
+    interface IDispatch2
+    {
+        CONST_VTBL struct IDispatch2Vtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define IDispatch2_QueryInterface(This,riid,ppvObject)	\
+    (This)->lpVtbl -> QueryInterface(This,riid,ppvObject)
+
+#define IDispatch2_AddRef(This)	\
+    (This)->lpVtbl -> AddRef(This)
+
+#define IDispatch2_Release(This)	\
+    (This)->lpVtbl -> Release(This)
+
+
+#define IDispatch2_GetTypeInfoCount(This,pctinfo)	\
+    (This)->lpVtbl -> GetTypeInfoCount(This,pctinfo)
+
+#define IDispatch2_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
+    (This)->lpVtbl -> GetTypeInfo(This,iTInfo,lcid,ppTInfo)
+
+#define IDispatch2_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
+    (This)->lpVtbl -> GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)
+
+#define IDispatch2_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
+    (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+HRESULT STDMETHODCALLTYPE IDispatch2_GetTypeInfoCount_Proxy( 
+    IDispatch2 * This,
+    /* [out] */ UINT *pctinfo);
+
+
+void __RPC_STUB IDispatch2_GetTypeInfoCount_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+HRESULT __cdecl IDispatch_GetTypeInfo_Proxy( 
+    IDispatch2 * This,
+    /* [in] */ UINT iTInfo,
+    /* [in] */ LCID lcid,
+    /* [out] */ ITypeInfo **ppTInfo);
+
+
+void __RPC_STUB IDispatch2_GetTypeInfo_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+HRESULT __cdecl IDispatch_GetIDsOfNames_Proxy( 
+    IDispatch2 * This,
+    /* [in] */ REFIID riid,
+    /* [size_is][in] */ LPOLESTR *rgszNames,
+    /* [in] */ UINT cNames,
+    /* [in] */ LCID lcid,
+    /* [size_is][out] */ DISPID *rgDispId);
+
+
+void __RPC_STUB IDispatch2_GetIDsOfNames_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [call_as] */ HRESULT __cdecl IDispatch2_RemoteInvoke_Proxy( 
+    IDispatch2 * This,
+    /* [in] */ DISPID dispIdMember,
+    /* [in] */ REFIID riid,
+    /* [in] */ LCID lcid,
+    /* [in] */ DWORD dwFlags,
+    /* [in] */ DISPPARAMS *pDispParams,
+    /* [out] */ VARIANT *pVarResult,
+    /* [out] */ EXCEPINFO *pExcepInfo,
+    /* [out] */ UINT *pArgErr,
+    /* [in] */ UINT cVarRef,
+    /* [size_is][in] */ UINT *rgVarRefIdx,
+    /* [size_is][out][in] */ VARIANTARG *rgVarRef);
+
+
+void __RPC_STUB IDispatch2_RemoteInvoke_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+
+#endif 	/* __IDispatch2_INTERFACE_DEFINED__ */
